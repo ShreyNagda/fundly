@@ -1,8 +1,8 @@
-
+import LoginButton from "@/components/LoginButton";
 
 export default function Home() {
   return (
-    <div className="min-h-svh bg-background flex flex-col justify-center container">
+    <div className="h-full flex flex-col justify-center items-center container">
       <div className="max-w-[800px] mx-auto text-center px-4">
         <div className="h1 text-foreground">
           Track, Manage, and Grow your family's wealth
