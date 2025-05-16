@@ -1,5 +1,3 @@
-import LoginButton from "@/components/LoginButton";
-
 export default function DashboardPage() {
   return (
     <div>
