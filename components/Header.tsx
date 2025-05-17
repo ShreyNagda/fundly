@@ -1,30 +1,35 @@
-"use client";
 import Image from "next/image";
 import { LogoutButton } from "./LogoutButton";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { useTheme } from "next-themes";
 import { DarkModeToggle } from "./DarkModeToggle";
-export function Header() {
-  const user = null;
+import { getUser } from "@/utils/supabase/server";
+import { ProfileButton } from "./ProfileButton";
+import { User } from "@supabase/supabase-js";
+
+export async function Header() {
+  const user: User | null = await getUser();
   return (
-    <nav className="container mx-auto flex items-center justify-between p-4 lg:p-8 bg-popover">
+    <nav className="container mx-auto flex items-center justify-between p-4 lg:p-8 bg-popover rounded-md">
       <div className="flex items-center gap-2 md:gap-4 h-[30px] w-[30px] md:h-[60px] md:w-[60px]">
         <Image src={"/logo.png"} width={60} height={60} alt="Logo" />
         <div className="text-xl md:text-3xl font-bold">Fundly.io</div>
       </div>
-      <div className="flex gap-2">
-        {user ? (
+      <div className="flex gap-2 items-center">
+        {!user ? (
           <>
+            <Button asChild variant={"outline"} className="hidden md:block">
+              <Link href={"/signup"}>Sign Up</Link>
+            </Button>
             <Button asChild>
               <Link href={"/login"}>Login</Link>
             </Button>
-            <Button asChild variant={"outline"}>
-              <Link href={"/signup"}>Sign Up</Link>
-            </Button>
           </>
         ) : (
-          <LogoutButton />
+          <>
+            {user && <ProfileButton user={user} />}
+            <LogoutButton />
+          </>
         )}
         <DarkModeToggle />
       </div>

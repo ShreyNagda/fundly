@@ -5,16 +5,6 @@ import { Header } from "@/components/Header";
 import { ThemeProvider } from "@/lib/providers/ThemeProvoder";
 import { Toaster } from "sonner";
 
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
-
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
-
 const roboto = Roboto({
   variable: "--font-roboto",
   subsets: ["latin"],
@@ -47,8 +37,8 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          {children}
-          <Toaster />
+          <main className="">{children}</main>
+          <Toaster richColors />
         </ThemeProvider>
       </body>
     </html>

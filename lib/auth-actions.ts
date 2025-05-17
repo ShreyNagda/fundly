@@ -5,6 +5,9 @@ import { redirect } from "next/navigation";
 
 import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
+import { AuthError } from "@supabase/supabase-js";
+
+// import { toast } from "sonner";
 
 export async function login(formData: FormData) {
   const supabase = await createClient();
@@ -19,11 +22,12 @@ export async function login(formData: FormData) {
   const { error } = await supabase.auth.signInWithPassword(data);
 
   if (error) {
-    redirect("/error");
+    console.log(error);
+    return { error: error.message };
   }
 
   revalidatePath("/", "layout");
-  redirect("/dashboard");
+  return { message: "Successfully logged in!" };
 }
 
 export async function signup(formData: FormData) {
@@ -47,11 +51,12 @@ export async function signup(formData: FormData) {
   const { error } = await supabase.auth.signUp(data);
 
   if (error) {
-    redirect("/error");
+    console.log(error);
+    return { error: error.message };
   }
 
   revalidatePath("/", "layout");
-  redirect("/dashboard");
+  return { message: "Successfully signed up!" };
 }
 
 export async function signout() {
@@ -59,10 +64,11 @@ export async function signout() {
   const { error } = await supabase.auth.signOut();
   if (error) {
     console.log(error);
-    redirect("/error");
+    return { error: error.message };
   }
 
-  redirect("/logout");
+  revalidatePath("/", "layout");
+  return { message: "Successfully logged out!" };
 }
 
 export async function signInWithGoogle() {
@@ -76,14 +82,14 @@ export async function signInWithGoogle() {
         access_type: "offline",
         prompt: "consent",
       },
-      redirectTo: `${origin}/dashboard`,
+      redirectTo: `${origin}/auth/callback`,
     },
   });
 
   if (error) {
     console.log(error);
-    redirect("/error");
+    return { error: error.message };
   }
 
-  redirect(data.url);
+  redirect(data.url!);
 }
