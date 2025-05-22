@@ -27,9 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${roboto.variable} ${robotoMono.variable} antialiased min-h-svh`}
-      >
+      <body className={`${roboto.variable} ${robotoMono.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -37,7 +35,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          <main className="">{children}</main>
+          <main className="min-h-[calc(100svh_-_100px)] flex flex-col justify-center ">
+            {children}
+          </main>
           <Toaster richColors />
         </ThemeProvider>
       </body>

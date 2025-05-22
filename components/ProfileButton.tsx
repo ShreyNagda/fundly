@@ -14,13 +14,13 @@ export function ProfileButton({ user }: Props) {
     return _name[0].charAt(0).toUpperCase() + _name[1].charAt(0).toUpperCase();
   };
   return (
-    <Link href="/profile" className="p-1 border border-primary rounded-full">
-      <Avatar className="h-10 w-10">
+    <Link href="/profile" className="">
+      <Avatar className="w-8 h-8 md:w-10 md:h-10 border">
         <AvatarImage
           src={user.user_metadata.avatar_url}
-          className="h-10 w-10  rounded-full"
+          className="rounded-full h-full w-full"
         ></AvatarImage>
-        <AvatarFallback className="font-semibold">
+        <AvatarFallback className="font-semibold text-sm">
           {formatNameAsIcon(user.user_metadata.full_name)}
         </AvatarFallback>
       </Avatar>

@@ -1,6 +1,6 @@
 export default function DashboardPage() {
   return (
-    <div>
+    <div className="container mx-auto py-4 ">
       <div>Dashboard</div>
     </div>
   );

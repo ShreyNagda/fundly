@@ -73,21 +73,17 @@ export async function signout() {
 
 export async function signInWithGoogle() {
   const supabase = await createClient();
-  //   const locationc
+  //   const location
   const origin = (await headers()).get("origin");
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      queryParams: {
-        access_type: "offline",
-        prompt: "consent",
-      },
       redirectTo: `${origin}/auth/callback`,
     },
   });
 
   if (error) {
-    console.log(error);
+    console.log(`Err: ${error}`);
     return { error: error.message };
   }
 

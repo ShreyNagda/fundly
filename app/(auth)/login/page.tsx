@@ -12,7 +12,7 @@ export default async function LoginPage() {
   // const user = await getUser();
   return (
     <div>
-      <Card className="mt-24">
+      <Card>
         <CardHeader>
           <CardTitle className="text-2xl md:text-3xl font-bold">
             Login

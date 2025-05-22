@@ -1,6 +1,6 @@
 "use client";
 
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { CardContent, CardFooter } from "./ui/card";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
@@ -21,8 +21,10 @@ export function AuthForm({ type }: Props) {
   const isLoginForm = type == "login";
 
   const [isPending, startTransition] = useTransition();
+  const [loading, setLoading] = useState(false);
 
   const handleButtonClick = (formdata: FormData) => {
+    setLoading(true);
     startTransition(async () => {
       const response = await (isLoginForm ? login(formdata) : signup(formdata));
       if (response.error) {
@@ -31,23 +33,26 @@ export function AuthForm({ type }: Props) {
         toast.success(response.message);
         redirect("/dashboard");
       }
-      console.log(response);
+      setLoading(false);
     });
   };
 
   const handleGoogleButtonClick = async () => {
+    setLoading(true);
     const response = await signInWithGoogle();
     if (response.error) {
       toast.error("Authorization Error", { description: response.error });
     }
+    console.log(response);
+    setLoading(false);
   };
 
   return (
     <form>
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-3">
         {!isLoginForm && (
-          <div className="flex gap-2 items-center">
-            <div className="space-y-2">
+          <div className="flex gap-2 items-center w-full">
+            <div className="space-y-2 w-full">
               <Label htmlFor="fname">First</Label>
               <Input
                 type="text"
@@ -57,7 +62,7 @@ export function AuthForm({ type }: Props) {
                 required
               />
             </div>
-            <div className="space-y-2">
+            <div className="space-y-2 w-full">
               <Label htmlFor="lname">Last</Label>
               <Input
                 type="text"

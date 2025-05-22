@@ -6,6 +6,17 @@ import { LuLoaderCircle } from "react-icons/lu";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { signout } from "@/lib/auth-actions";
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogCancel,
+  AlertDialogAction,
+  AlertDialogHeader,
+  AlertDialogFooter,
+} from "./ui/alert-dialog";
 
 export function LogoutButton() {
   const [loading, setLoading] = useState(false);
@@ -23,8 +34,28 @@ export function LogoutButton() {
     setLoading(false);
   };
   return (
-    <Button onClick={handleLogout} className="w-20 text-sm">
-      {loading ? <LuLoaderCircle className="animate-spin" /> : "Log Out"}
-    </Button>
+    <>
+      <AlertDialog>
+        <AlertDialogTrigger asChild onClick={() => setLoading(true)}>
+          <Button className="w-20 md:w-20 text-sm">
+            {loading ? <LuLoaderCircle className="animate-spin" /> : "Log Out"}
+          </Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Do you really want to logout?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleLogout}>
+              Continue
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 }

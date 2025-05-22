@@ -47,7 +47,7 @@
   --radius: 0.625rem;
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.13 0.028 261.692);
-  --popover: oklch(1 0 0);
+  --popover: #F2F2F2;
   --popover-foreground: oklch(0.13 0.028 261.692);
   --primary: oklch(0.21 0.034 264.665);
   --primary-foreground: oklch(0.985 0.002 247.839);
@@ -120,10 +120,15 @@
     @apply bg-background text-foreground;
   }
   .h1{
-    @apply text-[30px] lg:text-[50px] leading-[1.1] font-bold
+    @apply text-[30px] lg:text-[50px] leading-[1.0] font-bold
+
   }
-  .container{
-    @apply max-w-[500px] mx-auto
+  
+}
+
+@layer utilities{
+.container{
+    @apply max-w-[900px] xl:max-w-[1200px] mx-auto
   }
 }
 

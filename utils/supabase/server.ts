@@ -33,7 +33,6 @@ export async function getUser() {
   const { auth } = await createClient();
 
   const userObject = await auth.getUser();
-
   if (userObject.error) {
     console.log(userObject.error);
     return null;
